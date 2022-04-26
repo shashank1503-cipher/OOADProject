@@ -10,8 +10,10 @@ import {
 import React from 'react';
 import { IoIosCreate } from 'react-icons/io';
 import { HiOutlineCursorClick } from 'react-icons/hi';
+import { Link, useNavigate } from 'react-router-dom';
 const Hero = () => {
   const { colorMode } = useColorMode();
+  let navigate = useNavigate();
   return (
     <Flex direction={'column'}>
       <Heading
@@ -21,12 +23,12 @@ const Hero = () => {
         p={6}
         pb={2}
       >
-        Welcome to{' '}
+        Welcome To
       </Heading>
       <Text
         bgGradient="linear(to-t, #1FA2FF, #12D8FA,#A6FFCB)"
         bgClip="text"
-        fontSize="6xl"
+        fontSize="7xl"
         fontWeight="extrabold"
       >
         Quizly
@@ -35,15 +37,17 @@ const Hero = () => {
         Create, share, and take quizzes
       </Text>
       <Flex justifyContent={'center'} m={10}>
-        <Button
-          variantColor="blue"
-          colorScheme={'blue'}
-          rightIcon={<IoIosCreate />}
-          mr={10}
-          size={'lg'}
-        >
-          Create Quiz
-        </Button>
+        <Link to="/create">
+          <Button
+            variantColor="blue"
+            colorScheme={'blue'}
+            rightIcon={<IoIosCreate />}
+            mr={10}
+            size={'lg'}
+          >
+            Create Quiz
+          </Button>
+        </Link>
         <Button
           variantColor="blue"
           colorScheme={'red'}
