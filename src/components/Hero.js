@@ -10,10 +10,9 @@ import {
 import React from 'react';
 import { IoIosCreate } from 'react-icons/io';
 import { HiOutlineCursorClick } from 'react-icons/hi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Hero = () => {
   const { colorMode } = useColorMode();
-  let navigate = useNavigate();
   return (
     <Flex direction={'column'}>
       <Heading
@@ -48,14 +47,16 @@ const Hero = () => {
             Create Quiz
           </Button>
         </Link>
-        <Button
-          variantColor="blue"
-          colorScheme={'red'}
-          rightIcon={<HiOutlineCursorClick />}
-          size={'lg'}
-        >
-          Give Quiz
-        </Button>
+        <Link to="/quizzes">
+          <Button
+            variantColor="blue"
+            colorScheme={'red'}
+            rightIcon={<HiOutlineCursorClick />}
+            size={'lg'}
+          >
+            Give Quiz
+          </Button>
+        </Link>
       </Flex>
       <Flex justifyContent={'center'}>
         <Box

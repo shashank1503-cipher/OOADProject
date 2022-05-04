@@ -1,10 +1,13 @@
-import { Text } from '@chakra-ui/react'
-import React from 'react'
+import { Text } from '@chakra-ui/react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Logo = (props) => {
+const Logo = props => {
   return (
-    <Text {...props}>Quizly</Text>
-  )
-}
+    <Link to="/">
+      <Text {...props}>Quizly</Text>
+    </Link>
+  );
+};
 
-export default Logo
+export default Logo;
