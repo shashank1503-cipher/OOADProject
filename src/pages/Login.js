@@ -11,9 +11,25 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 let Login = () => {
+  let {
+    loginEmail,
+    setLoginEmail,
+    loginPassword,
+    setLoginPassword,
+    login,
+    loading,
+    error,
+  } = useContext(AuthContext);
+
   return (
     <Flex minH={'100vh'} align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
@@ -30,13 +46,25 @@ let Login = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="email">
+            <FormControl id="email" isInvalid={error ? true : false}>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                value={loginEmail}
+                onChange={e => {
+                  setLoginEmail(e.target.value);
+                }}
+              />
             </FormControl>
-            <FormControl id="password">
+            <FormControl id="password" isInvalid={error ? true : false}>
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                type="password"
+                value={loginPassword}
+                onChange={e => {
+                  setLoginPassword(e.target.value);
+                }}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -44,9 +72,23 @@ let Login = () => {
                 align={'start'}
                 justify={'space-between'}
               ></Stack>
-              <Button colorScheme={'blue'} variantColor={'blue'}>
+              <Button
+                colorScheme={'blue'}
+                variantColor={'blue'}
+                onClick={login}
+                isLoading={loading}
+              >
                 Sign in
               </Button>
+              {error ? (
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertTitle>Error!</AlertTitle>
+                  <AlertDescription>{error} 😢 </AlertDescription>
+                </Alert>
+              ) : (
+                <></>
+              )}
             </Stack>
           </Stack>
         </Box>

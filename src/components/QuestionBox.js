@@ -60,7 +60,15 @@ const QuestionBox = props => {
   };
   console.log(errorMessage);
   return (
-    <Box boxShadow={'lg'} margin={'auto'} mt={'4'} p={'7'} w={'50%'}  bg={useColorModeValue('white', 'gray.700')} borderRadius={'lg'}>
+    <Box
+      boxShadow={'lg'}
+      margin={'auto'}
+      mt={'4'}
+      p={'7'}
+      w={'50%'}
+      bg={useColorModeValue('white', 'gray.700')}
+      borderRadius={'lg'}
+    >
       <FormControl>
         <FormLabel htmlFor="question">Question {props.number}</FormLabel>
         <Input
@@ -175,7 +183,7 @@ const QuestionBox = props => {
       ) : (
         <></>
       )}
-      {isSuccessfull && currentQuestionNumber === props.number ? (
+      {isSuccessfull && currentQuestionNumber === props.number  ? (
         <Alert status="success">
           <AlertIcon />
           Data uploaded to the server. Fire on! 🔥 🔥 🔥

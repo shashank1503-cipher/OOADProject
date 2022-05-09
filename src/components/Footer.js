@@ -4,10 +4,10 @@ import Logo from './Logo';
 
 const Footer = () => {
   return (
-    <Flex justifyContent={'space-between'} p={10}>
+    <Flex justifyContent={'space-between'} p={10} direction={['column','column','row','row']}>
       <Logo fontSize={'3xl'} />
       <Text fontSize={'xl'} verticalAlign={'baseline'}>
-        Made with 💝 by Group 2
+        Made with 💝 by Group 18
       </Text>
     </Flex>
   );

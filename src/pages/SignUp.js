@@ -12,14 +12,31 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import AuthContext from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 let SignupCard = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  let {
+    registerEmail,
+    setRegisterEmail,
+    registerPassword,
+    setRegisterPassword,
+    firstName,
+    setFirstName,
+    lastName,
+    setLastName,
+    register,
+    loading,
+    error,
+  } = useContext(AuthContext);
   return (
     <Flex
       minH={'100vh'}
@@ -47,24 +64,48 @@ let SignupCard = () => {
               <Box>
                 <FormControl id="firstName" isRequired>
                   <FormLabel>First Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    type="text"
+                    value={firstName}
+                    onChange={e => {
+                      setFirstName(e.target.value);
+                    }}
+                  />
                 </FormControl>
               </Box>
               <Box>
                 <FormControl id="lastName">
                   <FormLabel>Last Name</FormLabel>
-                  <Input type="text" />
+                  <Input
+                    type="text"
+                    value={lastName}
+                    onChange={e => {
+                      setLastName(e.target.value);
+                    }}
+                  />
                 </FormControl>
               </Box>
             </HStack>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                value={registerEmail}
+                onChange={e => {
+                  setRegisterEmail(e.target.value);
+                }}
+              />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? 'text' : 'password'} />
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  value={registerPassword}
+                  onChange={e => {
+                    setRegisterPassword(e.target.value);
+                  }}
+                />
                 <InputRightElement h={'full'}>
                   <Button
                     variant={'ghost'}
@@ -83,13 +124,27 @@ let SignupCard = () => {
                 size="lg"
                 colorScheme={'blue'}
                 variantColor={'blue'}
+                isLoading={loading}
+                onClick={register}
               >
                 Sign up
               </Button>
+              {error ? (
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertTitle>Error!</AlertTitle>
+                  <AlertDescription>{error} 😢 </AlertDescription>
+                </Alert>
+              ) : (
+                <></>
+              )}
             </Stack>
             <Stack pt={6}>
               <Text align={'center'}>
-                Already a user? <Link color={'blue.400'}>Login</Link>
+                Already a user?{' '}
+                <Link to="/login">
+                  <Text color={'blue.400'}>Login</Text>
+                </Link>
               </Text>
             </Stack>
           </Stack>

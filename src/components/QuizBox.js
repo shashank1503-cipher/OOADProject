@@ -63,9 +63,9 @@ export default function QuizBox({ quiz }) {
         <Flex mt={6} direction={'row'} justifyContent={'space-between'}>
           <Flex>
             <Text alignSelf={'center'}>
-              Your Score{' '}
+              Created By{' '}
               <Text color={'green.500'} fontWeight={'bold'}>
-                {quiz.userScore}
+                {quiz.createdBy}
               </Text>
             </Text>
           </Flex>

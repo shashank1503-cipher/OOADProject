@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -25,6 +26,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const [isToast, setIsToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastTitle, setToastTitle] = useState('');
+
   let navigate = useNavigate();
   onAuthStateChanged(auth, currentUser => {
     setUser(currentUser);
@@ -39,9 +44,13 @@ export const AuthProvider = ({ children }) => {
         registerEmail,
         registerPassword
       );
-      console.log(user);
+      // console.log(user);
       setError('');
       addUser();
+      setIsToast(true);
+      setToastTitle('Account Created');
+      setToastMessage('You have successfully created an account');
+      navigate('/');
     } catch (error) {
       //   console.log(error.message);
       setError(error.message);
@@ -51,6 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addUser = async () => {
+    console.log('addUser');
     setLoading(true);
     try {
       const docRef = await addDoc(collection(db, 'users'), {
@@ -66,7 +76,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async () => {
+    // console.log(loginEmail, loginPassword);
     setLoading(true);
+    setError('');
     try {
       const user = await signInWithEmailAndPassword(
         auth,
@@ -75,6 +87,9 @@ export const AuthProvider = ({ children }) => {
       );
       console.log(user);
       setError('');
+      setIsToast(true);
+      setToastTitle('Login Successful');
+      navigate('/');
     } catch (error) {
       console.log(error.message);
       setError(error.message);
@@ -85,12 +100,17 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     setLoading(true);
-    await signOut(auth)
-      .catch(err => setError(err))
-      .finally(() => {
-        setLoading(false);
-        navigate('/');
-      });
+    try {
+      await signOut(auth);
+
+      setToastTitle('Logout Successful');
+      setIsToast(true);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+      navigate('/');
+    }
   };
 
   let contextData = {
@@ -112,6 +132,12 @@ export const AuthProvider = ({ children }) => {
     setFirstName: setFirstName,
     lastName: lastName,
     setLastName: setLastName,
+    isToast: isToast,
+    toastTitle: toastTitle,
+    setToastTitle: setToastTitle,
+    toastMessage: toastMessage,
+    setToastMessage: setToastMessage,
+    setIsToast: setIsToast,
   };
   return (
     <AuthContext.Provider value={contextData}>

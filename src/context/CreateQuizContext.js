@@ -20,7 +20,7 @@ export const CreateQuizProvider = ({ children }) => {
     currentQuestionNumber: currentQuestionNumber,
     setCurrentQuestionNumber: setCurrentQuestionNumber,
     isSuccessfull:isSuccessfull,
-    setIsSuccessfulls:setIsSuccessfull
+    setIsSuccessfull:setIsSuccessfull
   };
 
   return (
